@@ -1,1 +1,1 @@
-My personal website, based on a template by HTML5up. 
+My personal website, based on an open-source template by Ryan Fitzgerald. 

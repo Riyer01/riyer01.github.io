@@ -1,1 +1,1 @@
-My personal website, based on an open-source template by Ryan Fitzgerald. 
+Personal site for Ray Iyer — co-founder of [Anglera](https://www.anglera.com).

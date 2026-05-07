@@ -1,175 +1,264 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Portfolio</title>
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+
+    <title>Ray Iyer — Co-founder, Anglera</title>
+    <meta name="description" content="Ray Iyer is the co-founder of Anglera, the product data company building the data infrastructure for agentic commerce. Previously product at Uber Eats; studied AI at Stanford.">
+    <meta name="author" content="Ray Iyer">
+    <link rel="canonical" href="https://riyer01.github.io/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ray Iyer — Co-founder, Anglera">
+    <meta property="og:description" content="Co-founder of Anglera. Building the product data infrastructure for agentic commerce.">
+    <meta property="og:url" content="https://riyer01.github.io/">
+    <meta property="og:site_name" content="Ray Iyer">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Ray Iyer — Co-founder, Anglera">
+    <meta name="twitter:description" content="Co-founder of Anglera. Building the product data infrastructure for agentic commerce.">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ray Iyer",
+      "url": "https://riyer01.github.io/",
+      "jobTitle": "Co-founder",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Anglera",
+        "url": "https://www.anglera.com"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Stanford University"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/~iyer",
+        "https://www.anglera.com"
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg: #f6f3ee;
+            --ink: #14110f;
+            --muted: #6b6258;
+            --rule: #d9d2c7;
+            --accent: #0d4045;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 17px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: clamp(56px, 12vh, 120px) 28px 48px;
+            width: 100%;
+        }
+
+        .eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 0 0 28px;
+        }
+
+        h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 500;
+            font-size: clamp(44px, 7vw, 64px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin: 0 0 14px;
+        }
+
+        .role {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: clamp(20px, 2.4vw, 24px);
+            color: var(--muted);
+            margin: 0 0 44px;
+        }
+
+        .role a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule);
+            transition: border-color 160ms ease;
+        }
+
+        .role a:hover { border-color: var(--accent); }
+
+        .bio p {
+            margin: 0 0 18px;
+            color: #2a2520;
+        }
+
+        .bio p:last-child { margin-bottom: 0; }
+
+        .stamp {
+            margin: 44px 0 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 4px;
+            transition: border-color 160ms ease, opacity 160ms ease;
+        }
+
+        .stamp img {
+            display: block;
+            height: 26px;
+            width: auto;
+        }
+
+        .stamp .stamp-arrow {
+            font-size: 14px;
+            color: var(--accent);
+            transition: transform 200ms ease;
+        }
+
+        .stamp:hover { opacity: 0.85; }
+        .stamp:hover .stamp-arrow { transform: translate(2px, -2px); }
+
+        .rule {
+            border: 0;
+            border-top: 1px solid var(--rule);
+            margin: 36px 0 28px;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .links a {
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: color 160ms ease, border-color 160ms ease;
+        }
+
+        .links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .links a .arrow {
+            display: inline-block;
+            transition: transform 200ms ease;
+        }
+
+        .links a:hover .arrow { transform: translate(2px, -2px); }
+
+        footer {
+            max-width: 640px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 28px 32px;
+            font-size: 13px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer .now {
+            font-style: italic;
+            font-family: 'Fraunces', Georgia, serif;
+        }
+
+        @media (max-width: 520px) {
+            main { padding-top: 64px; }
+            .links { gap: 18px 24px; }
+            footer { flex-direction: column; gap: 6px; align-items: flex-start; }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #16140f;
+                --ink: #ece6dc;
+                --muted: #9a8f80;
+                --rule: #322c25;
+                --accent: #6fb3b8;
+            }
+            .bio p { color: #d6cfc4; }
+            .stamp img {
+                filter: brightness(0) saturate(100%) invert(82%) sepia(8%) saturate(572%) hue-rotate(140deg) brightness(95%) contrast(86%);
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <div id="mobile-menu-open" class="shadow-large">
-        <i class="fa fa-bars" aria-hidden="true"></i>
-    </div>
-    <!-- End #mobile-menu-toggle -->
-    <header>
-        <div id="mobile-menu-close">
-            <span>Close</span> <i class="fa fa-times" aria-hidden="true"></i>
+    <main>
+        <p class="eyebrow">Ray Iyer</p>
+        <h1>Co-founder of Anglera.</h1>
+        <p class="role">The product data company for the age of agentic commerce — <a href="https://www.anglera.com" target="_blank" rel="noopener">anglera.com</a>.</p>
+
+        <div class="bio">
+            <p>Discovery is shifting from blue links to AI chat, curated recommendations, and direct checkout. Anglera builds the product data infrastructure for that shift — turning messy retailer and brand catalogs into rich, agent-readable data that AI systems can find, understand, and recommend.</p>
+            <p>Previously product at Uber Eats, where I shipped CPG ads for grocery, optimized same-day delivery routing, and ran the UberTasks pilot. Studied AI at Stanford (BS + MS, Computer Science).</p>
         </div>
-        <ul id="menu" class="shadow">
-            <li>
-                <a href="#about">About</a>
-            </li>
-            <li>
-                <a href="#education">Education</a>
-            </li>
-            <li>
-                <a href="#experience">Experience</a>
-            </li>
-            <li>
-                <a href="#contact">Contact</a>
-            </li>
+
+        <a class="stamp" href="https://www.anglera.com" target="_blank" rel="noopener" aria-label="Visit Anglera">
+            <img src="assets/anglera-logo.png" alt="Anglera" width="148" height="26">
+            <span class="stamp-arrow">↗</span>
+        </a>
+
+        <hr class="rule">
+
+        <ul class="links">
+            <li><a href="https://www.linkedin.com/in/~iyer" target="_blank" rel="noopener">LinkedIn <span class="arrow">↗</span></a></li>
+            <li><a href="mailto:ray@anglera.com">Email <span class="arrow">↗</span></a></li>
         </ul>
-    </header>
-    <!-- End header -->
-
-    <div id="lead">
-        <div id="lead-content">
-            <h1>Ray Iyer</h1>
-            <br>
-            <h2>CS Student @ Stanford University</h2>
-            <a href="https://linkedin.com/in/~iyer" style="color: #033763"  target="_blank"><i class="fa fa-4x fa-linkedin" aria-hidden="true"></i></a>
-        </div>
-        <!-- End #lead-content -->
-
-        <div id="lead-overlay"></div>
-
-        <div id="lead-down">
-            <span>
-                <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </span>
-        </div>
-        <!-- End #lead-down -->
-    </div>
-    <!-- End #lead -->
-
-    <div id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h2 class="heading">About Me</h2>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                        Originally from Detroit, Michigan, I moved to the Bay Area in 2017 to attend Stanford. I am constantly looking for ways to get involved in the world of tech and make my impact. In my free time, you can find me working out, making music, and building projects. I love meeting new people, so drop a line if you want to work together on something fun! 
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End #about -->
-
-    <div id="education">
-        <h2 class="heading">Education</h2>
-        <div class="education-block">
-            <h3>Stanford University</h3>
-            <span class="education-date">Sept 2017 - June 2022</span>
-            <h4>BS + MS in Computer Science</h4>
-            <p>
-                Currently on a leave of absence from school due to COVID, working on side projects. 
-            </p>
-        </div>
-        <!-- End .education-block -->
-    </div>
-    <!-- End #education -->
-
-    <div id="experience" class="background-alt">
-        <h2 class="heading">Experience</h2>
-        <div id="experience-timeline">
-            <div data-date="June 2020 – September 2020">
-                <h3>Blend</h3>
-                <h4>Software Engineering Intern</h4>
-                <p>
-                    Built feature to identify and report on failed loan disclosure documents via automatic recurring emails. Improved customer operational visibility by providing 5+ new data points for issue tracing and resolution. Won the company-wide hackathon in a team of 4; presented project demo to CEO and executive leadership.  
-                </p>
-            </div>
-
-            <div data-date="June 2019 – September 2019">
-                <h3>Microsoft</h3>
-                <h4>Software Engineer Intern</h4>
-                <p>
-                    Implemented the most popular user-requested feature on a consumer gaming tool supporting 5M+ MAUs. Presented projected business impact to 25+ key engineers and ~3 business executives in Xbox Live. Reported on by <a target="_blank" href='https://news.xbox.com/en-us/2019/10/22/october-2019-xbox-game-bar-update/'>Xbox News</a> and <a target="_blank" href='https://www.ign.com/articles/2019/10/22/xbox-game-bar-adds-fps-tracker-new-achievement-tracking-tools'>IGN</a>.</p>
-            </div>
-
-            <div data-date="June 2018 – September 2018">
-                <h3>Black SMS</h3>
-                <h4>Summer Intern</h4>
-                <p>
-                    Automated candidate sourcing process to send multi-channel cold outreach to 5K+ candidates. Designed website to strengthen company brand by telling the company story and highlighting the product.</p>
-            </div>
-
-            <div data-date="January 2018 - April 2018">
-                <h3>Alchemist Accelerator</h3>
-                <h4>Business Development Fellow</h4>
-                <p>
-                    Drove partnership negotiations with fitness provider and airline around perks to offer portfolio companies. Conducted market research and due dilligence.
-                </p>
-            </div>
-        </div>
-    </div>
-    <!-- End #experience -->
-
-    <div id="contact">
-        <h2>Get in Touch</h2>
-        <div id="contact-form">
-            <form method="POST" action="https://formspree.io/rri@stanford.edu">
-                <input type="hidden" name="_subject" value="Contact request from personal website" />
-                <input type="email" name="_replyto" placeholder="Your email" required>
-                <textarea name="message" placeholder="Your message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-        <!-- End #contact-form -->
-    </div>
-    <!-- End #contact -->
+    </main>
 
     <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-5 copyright">
-                    <p>
-                        Copyright &copy; 2020 Ray Iyer
-                    </p>
-                </div>
-                <div class="col-sm-2 top">
-                    <span id="to-top">
-                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
-                    </span>
-                </div>
-                <div class="col-sm-5 social">
-                    <ul>
-                        <li>
-                            <a href="https://github.com/Riyer01" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://linkedin.com/in/~iyer" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <span>San Francisco</span>
+        <span class="now">building Anglera.</span>
     </footer>
-    <!-- End footer -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/scripts.min.js"></script>
 </body>
-
 </html>

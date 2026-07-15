@@ -16,7 +16,7 @@
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Ray Iyer — Co-founder, Anglera">
-    <meta property="og:description" content="Co-founder of Anglera. Building the product data infrastructure for agentic commerce.">
+    <meta property="og:description" content="Co-founder of Anglera. Building the product data infrastructure for agentic commerce. Scroll to descend.">
     <meta property="og:url" content="https://rayiyer.com/">
     <meta property="og:site_name" content="Ray Iyer">
 
@@ -24,11 +24,12 @@
     <meta name="twitter:title" content="Ray Iyer — Co-founder, Anglera">
     <meta name="twitter:description" content="Co-founder of Anglera. Building the product data infrastructure for agentic commerce.">
 
+    <script defer src="/_vercel/insights/script.js"></script>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
     {
@@ -55,131 +56,199 @@
 
     <style>
         :root {
-            --bg: #f6f3ee;
-            --ink: #14110f;
-            --muted: #6b6258;
-            --rule: #d9d2c7;
-            --accent: #0d4045;
+            --surface: #0f7c86;
+            --shelf: #0a5d68;
+            --twilight: #06424d;
+            --midnight: #022b34;
+            --abyss: #01161d;
+            --trench: #000a0f;
+            --ink: #014751;
+            --foam: #eafaf3;
+            --mist: #a8cfd0;
+            --lure: #9ee858;
+            --lure-dim: rgba(158, 232, 88, 0.16);
         }
 
         * { box-sizing: border-box; }
 
+        html { scroll-behavior: smooth; }
+
         html, body {
             margin: 0;
             padding: 0;
-            background: var(--bg);
-            color: var(--ink);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--foam);
+            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-size: 17px;
-            line-height: 1.6;
+            line-height: 1.65;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            min-height: 100vh;
+            background: linear-gradient(to bottom,
+                var(--surface) 0%,
+                var(--shelf) 16%,
+                var(--twilight) 36%,
+                var(--midnight) 58%,
+                var(--abyss) 80%,
+                var(--trench) 100%);
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--lure); color: var(--ink); }
+
+        a { color: inherit; }
+
+        /* ---- sunlight rays at the surface ---- */
+        .rays {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 130vh;
+            pointer-events: none;
+            background:
+                linear-gradient(112deg, transparent 18%, rgba(234, 250, 243, 0.10) 20%, transparent 26%),
+                linear-gradient(104deg, transparent 40%, rgba(234, 250, 243, 0.07) 43%, transparent 51%),
+                linear-gradient(118deg, transparent 64%, rgba(234, 250, 243, 0.09) 66%, transparent 71%);
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+        }
+
+        /* ---- fish + particle canvas ---- */
+        #sea {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        /* ---- HUD ---- */
+        .hud {
+            position: fixed;
+            top: 18px;
+            right: 20px;
+            z-index: 10;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: var(--mist);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(1, 22, 29, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(168, 207, 208, 0.18);
+            border-radius: 999px;
+            padding: 8px 16px;
+        }
+
+        .hud .count b { color: var(--lure); font-weight: 500; }
+
+        .hud button {
+            appearance: none;
+            border: 0;
+            background: none;
+            color: var(--mist);
+            font: inherit;
+            cursor: pointer;
+            padding: 0;
+            letter-spacing: inherit;
+        }
+
+        .hud button[aria-pressed="false"] { opacity: 0.4; text-decoration: line-through; }
+        .hud button:focus-visible, a:focus-visible, .replay:focus-visible {
+            outline: 2px solid var(--lure);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* ---- layout ---- */
+        main {
+            position: relative;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        .depth-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--lure);
+            margin: 0 0 18px;
+        }
+
+        .depth-tag .m { color: var(--mist); }
+
+        /* ---- hero ---- */
+        .hero {
+            min-height: 92vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            padding-top: 10vh;
+            position: relative;
         }
 
-        main {
-            flex: 1;
-            max-width: 640px;
-            margin: 0 auto;
-            padding: clamp(56px, 12vh, 120px) 28px 48px;
-            width: 100%;
-        }
-
-        .eyebrow {
-            font-family: 'Inter', sans-serif;
+        .hero .eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 13px;
             font-weight: 500;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: var(--muted);
-            margin: 0 0 28px;
+            color: var(--foam);
+            margin: 0 0 26px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
+
+        .hero .eyebrow svg { display: block; }
 
         h1 {
-            font-family: 'Fraunces', Georgia, serif;
-            font-weight: 500;
-            font-size: clamp(44px, 7vw, 64px);
-            line-height: 1.05;
-            letter-spacing: -0.02em;
-            margin: 0 0 14px;
+            font-family: 'Bricolage Grotesque', Georgia, sans-serif;
+            font-weight: 800;
+            font-size: clamp(46px, 8vw, 78px);
+            line-height: 0.98;
+            letter-spacing: -0.025em;
+            margin: 0 0 20px;
         }
 
+        h1 .drop { color: var(--lure); }
+
         .role {
-            font-family: 'Fraunces', Georgia, serif;
-            font-weight: 400;
-            font-style: italic;
-            font-size: clamp(20px, 2.4vw, 24px);
-            color: var(--muted);
-            margin: 0 0 44px;
+            font-size: clamp(18px, 2.3vw, 21px);
+            color: var(--mist);
+            max-width: 34em;
+            margin: 0 0 34px;
         }
 
         .role a {
-            color: var(--ink);
+            color: var(--foam);
             text-decoration: none;
-            border-bottom: 1px solid var(--rule);
-            transition: border-color 160ms ease;
+            border-bottom: 1px solid rgba(158, 232, 88, 0.45);
+            transition: border-color 160ms ease, color 160ms ease;
         }
 
-        .role a:hover { border-color: var(--accent); }
-
-        .bio p {
-            margin: 0 0 18px;
-            color: #2a2520;
-        }
-
-        .bio p:last-child { margin-bottom: 0; }
-
-        .stamp {
-            margin: 44px 0 0;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            padding-bottom: 4px;
-            transition: border-color 160ms ease, opacity 160ms ease;
-        }
-
-        .stamp img {
-            display: block;
-            height: 26px;
-            width: auto;
-        }
-
-        .stamp .stamp-arrow {
-            font-size: 14px;
-            color: var(--accent);
-            transition: transform 200ms ease;
-        }
-
-        .stamp:hover { opacity: 0.85; }
-        .stamp:hover .stamp-arrow { transform: translate(2px, -2px); }
-
-        .rule {
-            border: 0;
-            border-top: 1px solid var(--rule);
-            margin: 36px 0 28px;
-        }
+        .role a:hover { color: var(--lure); border-color: var(--lure); }
 
         .links {
             display: flex;
             flex-wrap: wrap;
-            gap: 28px;
+            gap: 26px;
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
         .links a {
-            color: var(--ink);
             text-decoration: none;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -188,83 +257,822 @@
             transition: color 160ms ease, border-color 160ms ease;
         }
 
-        .links a:hover {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        .links a .arrow {
-            display: inline-block;
-            transition: transform 200ms ease;
-        }
-
+        .links a:hover { color: var(--lure); border-bottom-color: var(--lure); }
+        .links a .arrow { display: inline-block; transition: transform 200ms ease; }
         .links a:hover .arrow { transform: translate(2px, -2px); }
 
-        footer {
-            max-width: 640px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 24px 28px 32px;
+        .dive-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 28px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            color: var(--mist);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dive-hint::before {
+            content: "";
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--lure);
+            box-shadow: 0 0 12px 2px rgba(158, 232, 88, 0.7);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.6); opacity: 0.5; }
+        }
+
+        /* ---- chapters ---- */
+        .chapter {
+            position: relative;
+            padding: 24vh 0;
+        }
+
+        .chapter h2 {
+            font-family: 'Bricolage Grotesque', Georgia, sans-serif;
+            font-weight: 600;
+            font-size: clamp(30px, 4.6vw, 44px);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            margin: 0 0 20px;
+        }
+
+        .chapter p {
+            color: var(--mist);
+            max-width: 33em;
+            margin: 0 0 16px;
+        }
+
+        .chapter p strong { color: var(--foam); font-weight: 600; }
+
+        .storyline {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: clamp(21px, 3vw, 27px);
+            line-height: 1.35;
+            color: var(--foam);
+            max-width: 24em;
+            margin: 34px 0 0;
+            padding-left: 18px;
+            border-left: 2px solid var(--lure);
+        }
+
+        .hero .storyline {
+            margin: 0 0 30px;
+            border-left: 0;
+            padding-left: 0;
+            color: var(--mist);
+        }
+
+        /* ---- floating messy SKUs ---- */
+        .sku {
+            position: absolute;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12.5px;
+            line-height: 1.4;
+            white-space: nowrap;
+            padding: 8px 13px;
+            border-radius: 8px;
+            color: rgba(234, 250, 243, 0.62);
+            background: rgba(1, 22, 29, 0.45);
+            border: 1px dashed rgba(168, 207, 208, 0.35);
+            transform: rotate(var(--tilt, -2deg));
+            animation: bob 6s ease-in-out infinite;
+            animation-delay: var(--bob-delay, 0s);
+            transition: opacity 300ms ease;
+            z-index: 5;
+        }
+
+        @keyframes bob {
+            0%, 100% { translate: 0 0; }
+            50% { translate: 0 -14px; }
+        }
+
+        .sku .clean { display: none; }
+
+        .sku.enriched {
+            border: 1px solid rgba(158, 232, 88, 0.55);
+            background: rgba(3, 43, 52, 0.92);
+            color: var(--foam);
+            transform: rotate(0deg);
+            box-shadow: 0 0 22px rgba(158, 232, 88, 0.22);
+            animation: bob 6s ease-in-out infinite, settle 420ms cubic-bezier(0.2, 1.6, 0.4, 1);
+        }
+
+        @keyframes settle {
+            0% { scale: 0.7; }
+            100% { scale: 1; }
+        }
+
+        .sku.enriched .raw { display: none; }
+        .sku.enriched .clean { display: block; }
+        .sku .clean .check { color: var(--lure); }
+        .sku .clean small {
+            display: block;
+            color: var(--mist);
+            font-size: 11px;
+        }
+
+        /* ---- the anglerfish chapter emblem ---- */
+        .emblem {
+            margin: 0 0 26px;
+            width: 76px;
+            height: 76px;
+            animation: emblemGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes emblemGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(158, 232, 88, 0.35)); }
+            50% { filter: drop-shadow(0 0 26px rgba(158, 232, 88, 0.75)); }
+        }
+
+        /* ---- finale ---- */
+        .finale {
+            position: relative;
+            padding: 26vh 0 20vh;
+            text-align: left;
+        }
+
+        .tally {
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 13px;
-            color: var(--muted);
+            letter-spacing: 0.06em;
+            color: var(--mist);
+            border: 1px solid rgba(168, 207, 208, 0.22);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 30px 0;
+            background: rgba(0, 10, 15, 0.5);
+        }
+
+        .tally b { color: var(--lure); font-weight: 500; }
+
+        .replay {
+            appearance: none;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--lure);
+            background: none;
+            border: 1px solid rgba(158, 232, 88, 0.5);
+            border-radius: 999px;
+            padding: 8px 18px;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: background 160ms ease, color 160ms ease;
+        }
+
+        .replay:hover { background: var(--lure); color: var(--ink); }
+
+        .stamp {
+            margin: 40px 0 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: opacity 160ms ease;
+        }
+
+        .stamp img {
+            display: block;
+            height: 28px;
+            width: auto;
+            filter: brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(1218%) hue-rotate(37deg) brightness(103%) contrast(88%);
+        }
+
+        .stamp .stamp-arrow { font-size: 15px; color: var(--lure); transition: transform 200ms ease; }
+        .stamp:hover { opacity: 0.85; }
+        .stamp:hover .stamp-arrow { transform: translate(2px, -2px); }
+
+        /* ---- the seafloor: naming easter egg ---- */
+        .seafloor {
+            position: relative;
+            padding: 30vh 0 12vh;
+        }
+
+        .seafloor h2 {
+            font-family: 'Bricolage Grotesque', Georgia, sans-serif;
+            font-weight: 600;
+            font-size: clamp(30px, 4.6vw, 44px);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            margin: 0 0 20px;
+        }
+
+        .seafloor > p { color: var(--mist); max-width: 33em; margin: 0 0 16px; }
+
+        .oysters {
+            display: flex;
+            gap: clamp(18px, 6vw, 56px);
+            align-items: flex-end;
+            margin: 48px 0 10px;
+        }
+
+        .pearls { max-width: 34em; }
+
+        .oyster {
+            appearance: none;
+            background: none;
+            border: 0;
+            padding: 6px;
+            cursor: pointer;
+            display: block;
+        }
+
+        .oyster svg { display: block; width: clamp(58px, 9vw, 84px); height: auto; overflow: visible; }
+
+        .oyster .valve-top {
+            transform-origin: 8px 30px;
+            transition: transform 600ms cubic-bezier(0.3, 1.4, 0.4, 1);
+        }
+
+        .oyster .pearl {
+            opacity: 0;
+            transition: opacity 500ms ease 200ms;
+        }
+
+        .oyster[aria-expanded="true"] .valve-top { transform: rotate(-42deg); }
+        .oyster[aria-expanded="true"] .pearl { opacity: 1; }
+        .oyster[aria-expanded="true"] { cursor: default; }
+        .oyster:hover:not([aria-expanded="true"]) svg { filter: drop-shadow(0 0 10px rgba(158, 232, 88, 0.35)); }
+
+        .pearl-text {
+            font-size: 15px;
+            color: var(--mist);
+            max-width: 30em;
+            margin: 14px 0 0;
+            text-align: left;
+        }
+
+        .pearl-text b { color: var(--foam); font-weight: 600; }
+
+        .pearl-tally {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            color: var(--mist);
+            margin: 26px 0 0;
+        }
+
+        .pearl-final {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: clamp(20px, 2.6vw, 25px);
+            color: var(--foam);
+            margin: 20px 0 0;
+        }
+
+        @media (max-width: 560px) {
+            .oysters { flex-wrap: wrap; align-items: flex-start; }
+        }
+
+        footer {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 28px 44px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: rgba(168, 207, 208, 0.55);
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        footer .now {
-            font-style: italic;
-            font-family: 'Fraunces', Georgia, serif;
-        }
-
-        @media (max-width: 520px) {
-            main { padding-top: 64px; }
-            .links { gap: 18px 24px; }
-            footer { flex-direction: column; gap: 6px; align-items: flex-start; }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #16140f;
-                --ink: #ece6dc;
-                --muted: #9a8f80;
-                --rule: #322c25;
-                --accent: #6fb3b8;
+        @media (max-width: 560px) {
+            .chapter { padding: 18vh 0; }
+            .sku {
+                position: static;
+                display: inline-block;
+                font-size: 11px;
+                padding: 6px 10px;
+                margin: 14px 10px 0 0;
+                white-space: normal;
             }
-            .bio p { color: #d6cfc4; }
-            .stamp img {
-                filter: brightness(0) saturate(100%) invert(82%) sepia(8%) saturate(572%) hue-rotate(140deg) brightness(95%) contrast(86%);
-            }
+            .hud { top: 12px; right: 12px; padding: 6px 12px; gap: 10px; }
+            .dive-hint { left: 28px; right: 28px; }
+        }
+
+        /* ---- reduced motion: the sea holds still ---- */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            #sea, .dive-hint::before { display: none; }
+            .sku, .emblem { animation: none; }
         }
     </style>
 </head>
 <body>
+    <div class="rays" aria-hidden="true"></div>
+    <canvas id="sea" aria-hidden="true"></canvas>
+
+    <div class="hud" aria-hidden="true">
+        <span class="depth" id="hudDepth">0 m</span>
+        <span class="count">enriched <b id="hudCount">0</b>/<span id="hudTotal">12</span></span>
+        <button id="soundToggle" aria-pressed="true" title="Toggle sound">snd</button>
+    </div>
+
     <main>
-        <p class="eyebrow">Ray Iyer</p>
-        <h1>Co-founder of Anglera.</h1>
-        <p class="role">The product data company for the age of agentic commerce — <a href="https://www.anglera.com" target="_blank" rel="noopener">anglera.com</a>.</p>
+        <section class="hero">
+            <p class="eyebrow">
+                <svg width="22" height="22" viewBox="0 0 169 169" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M84.3194 57.0901L92.6563 62.549C105.771 71.1252 120.64 76.4681 136.19 78.2587C122.162 71.0962 109.707 60.9469 100.029 48.7604C89.104 35.0008 74.5035 24.3657 57.8078 18.0078L41.4311 11.7732C30.9628 17.9716 21.9443 26.3521 15.0138 36.2984L39.8652 40.1189C55.6764 42.5475 71.0455 48.4197 84.3194 57.0901ZM109.113 41.5543C123.88 60.1567 145.418 72.7999 168.958 77.2148C165.152 33.9423 128.81 0 84.5441 0C74.5397 0 64.9413 1.73264 56.0317 4.92244L61.94 7.16979C80.5786 14.2671 96.8901 26.1563 109.113 41.5543ZM86.313 72.2561L77.9688 66.8045C66.0723 59.0257 52.2909 53.7626 38.1036 51.5877L8.62695 47.0567C3.78426 56.7711 0.761201 67.5512 0 78.9475H98.05C94.0192 76.9683 90.1045 74.7282 86.313 72.2561ZM100.029 120.734C109.707 108.54 122.169 98.3907 136.204 91.2354C120.647 93.0261 105.778 98.369 92.6563 106.945L84.3194 112.404C71.0455 121.075 55.6764 126.947 39.8652 129.375L15.0138 133.196C21.9443 143.142 30.9628 151.523 41.4311 157.721L57.8078 151.486C74.5035 145.128 89.104 134.493 100.029 120.734ZM109.113 127.947C96.8901 143.338 80.5786 155.227 61.94 162.324L56.0317 164.572C64.9413 167.762 74.5397 169.494 84.5441 169.494C128.81 169.494 165.152 135.552 168.958 92.2794C145.418 96.6943 123.88 109.338 109.113 127.947ZM77.9688 102.69L86.313 97.238C90.1045 94.7659 94.0192 92.5258 98.05 90.5467H0C0.761201 101.943 3.78426 112.723 8.62695 122.437L38.1036 117.914C52.2909 115.732 66.0723 110.468 77.9688 102.69Z" fill="#9ee858"/></svg>
+                Ray Iyer · San Francisco
+            </p>
+            <h1>Co-founder<br>of Anglera<span class="drop">.</span></h1>
+            <p class="storyline">Every founding story is a fish story. Ours happens to be true.</p>
+            <p class="role">The product data company for the age of agentic commerce — <a href="https://www.anglera.com" target="_blank" rel="noopener">anglera.com</a>. This is the story of why it exists, told the way we found it: by going down.</p>
+            <ul class="links">
+                <li><a href="https://www.linkedin.com/in/~iyer" target="_blank" rel="noopener">LinkedIn <span class="arrow">↗</span></a></li>
+                <li><a href="mailto:ray@anglera.com">Email <span class="arrow">↗</span></a></li>
+                <li><a href="https://www.anglera.com" target="_blank" rel="noopener">Anglera <span class="arrow">↗</span></a></li>
+            </ul>
+            <p class="dive-hint" id="diveHint">scroll to descend — the angler follows your light</p>
+        </section>
 
-        <div class="bio">
-            <p>Discovery is shifting from blue links to AI chat, curated recommendations, and direct checkout. Anglera builds the product data infrastructure for that shift — turning messy retailer and brand catalogs into rich, agent-readable data that AI systems can find, understand, and recommend.</p>
-            <p>Previously product at Uber Eats, where I shipped CPG ads for grocery, optimized same-day delivery routing, and ran the UberTasks pilot. Studied AI at Stanford (BS + MS, Computer Science).</p>
-        </div>
+        <section class="chapter" id="ch-stanford">
+            <p class="depth-tag">−140 <span class="m">m</span> · sunlight zone · Stanford</p>
+            <h2>Learning how machines read the world.</h2>
+            <p>BS and MS in computer science at <strong>Stanford</strong>, focused on AI. Up here the water is bright and everything seems legible — you train a model, it learns, the future feels close enough to touch. The lesson that stuck came later: a model is only as good as the data underneath it, and most of the world's data was never written for a machine to read.</p>
+            <p class="storyline">Nobody tells you how deep the water goes. You find out by falling in.</p>
+            <span class="sku" style="top: 12%; left: 62%; --tilt: 3deg; --bob-delay: -1s;"><span class="raw">item00423 // desc: GOOD QUALITY!!</span><span class="clean"><span class="check">✓</span> LED Work Light, 2000 lm<small>34 attributes · agent-ready</small></span></span>
+            <span class="sku" style="top: 74%; left: 4%; --tilt: -3deg; --bob-delay: -3s;"><span class="raw">warranty: yes</span><span class="clean"><span class="check">✓</span> 5-yr limited warranty, registered<small>agent-ready</small></span></span>
+        </section>
 
-        <a class="stamp" href="https://www.anglera.com" target="_blank" rel="noopener" aria-label="Visit Anglera">
-            <img src="assets/anglera-logo.png" alt="Anglera" width="148" height="26">
-            <span class="stamp-arrow">↗</span>
-        </a>
+        <section class="chapter" id="ch-uber">
+            <p class="depth-tag">−600 <span class="m">m</span> · twilight zone · Uber Eats</p>
+            <h2>Millions of SKUs, and every one a mess.</h2>
+            <p>Product at <strong>Uber Eats</strong>: CPG ads for grocery, same-day delivery routing, the UberTasks pilot. Grocery catalogs flowed through those systems by the million, and somewhere between the ads and the routing we started noticing what we were actually standing on — <strong>the product data underneath commerce is a mess</strong>. Duplicate items. Missing sizes. Descriptions written for no one. We shipped feature after feature and felt the ground shift under every one.</p>
+            <p>We filed it under "marketplace problems." That was wrong, and being wrong about it changed our lives.</p>
+            <p class="storyline">Millions of products swam past us every day. We couldn't stop seeing them.</p>
+            <span class="sku" style="top: 8%; left: 55%; --tilt: -4deg; --bob-delay: -2s;"><span class="raw">shoe_run_10_blu / Color: BLUE;blue;Blu</span><span class="clean"><span class="check">✓</span> Men's Road Runner, Blue, sz 10<small>41 attributes · agent-ready</small></span></span>
+            <span class="sku" style="top: 46%; left: 68%; --tilt: 2deg; --bob-delay: -4.5s;"><span class="raw">hammer, claw, hammer claw, HAMMER</span><span class="clean"><span class="check">✓</span> 16 oz Claw Hammer, fiberglass<small>28 attributes · agent-ready</small></span></span>
+            <span class="sku" style="top: 84%; left: 10%; --tilt: 3deg; --bob-delay: -1.5s;"><span class="raw">SKU 8841-B — drll 20v blk FINAL_v2(1)</span><span class="clean"><span class="check">✓</span> 20V Cordless Drill Kit<small>47 attributes · agent-ready</small></span></span>
+        </section>
 
-        <hr class="rule">
+        <section class="chapter" id="ch-shift">
+            <p class="depth-tag">−1,800 <span class="m">m</span> · midnight zone · the realization</p>
+            <h2>What isn't structured is hidden forever.</h2>
+            <p>Look around. Every retailer. Every brand. Every distributor, every manufacturer — anyone, anywhere, with a catalog of SKUs is sitting on shelves of products the world can't read. Products without structure can't be understood. Products that can't be understood can't be found. Not buried. Not hard to find. <strong>Hidden forever.</strong></p>
+            <p>Sit with what that means: a shopper wants a product. The product exists — in stock, priced, ready, perfect for them. They never meet. Multiply that missed meeting by billions and it stops being a data problem. <strong>It's one of the largest market inefficiencies left on the internet.</strong></p>
+            <p>And the water was getting darker. Discovery was moving from blue links to <strong>AI chat, curated recommendations, direct checkout</strong> — agents that read structure, or read nothing. Same product: one gets recommended, the other doesn't exist.</p>
+            <p class="storyline">Somewhere out there, someone needs exactly this thing. And they will never find it.</p>
+            <span class="sku" style="top: 10%; left: 58%; --tilt: 2deg; --bob-delay: -2.4s;"><span class="raw">IMG_4032.jpg (no image)</span><span class="clean"><span class="check">✓</span> Ceramic Pour-Over Set + 6 images<small>agent-ready</small></span></span>
+            <span class="sku" style="top: 50%; left: 2%; --tilt: -3deg; --bob-delay: -3.8s;"><span class="raw">Faucet – Chrome? Brushed?? call vendor</span><span class="clean"><span class="check">✓</span> Single-Handle Faucet, Brushed Nickel<small>39 attributes · agent-ready</small></span></span>
+            <span class="sku" style="top: 86%; left: 52%; --tilt: 4deg; --bob-delay: -0.8s;"><span class="raw">GRLL PROPANE?? 3-brnr TBD</span><span class="clean"><span class="check">✓</span> 3-Burner Propane Grill, 30k BTU<small>52 attributes · agent-ready</small></span></span>
+        </section>
 
-        <ul class="links">
-            <li><a href="https://www.linkedin.com/in/~iyer" target="_blank" rel="noopener">LinkedIn <span class="arrow">↗</span></a></li>
-            <li><a href="mailto:ray@anglera.com">Email <span class="arrow">↗</span></a></li>
-        </ul>
+        <section class="chapter" id="ch-angler">
+            <p class="depth-tag">−3,200 <span class="m">m</span> · abyssal zone · Anglera</p>
+            <svg class="emblem" viewBox="0 0 169 169" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M84.3194 57.0901L92.6563 62.549C105.771 71.1252 120.64 76.4681 136.19 78.2587C122.162 71.0962 109.707 60.9469 100.029 48.7604C89.104 35.0008 74.5035 24.3657 57.8078 18.0078L41.4311 11.7732C30.9628 17.9716 21.9443 26.3521 15.0138 36.2984L39.8652 40.1189C55.6764 42.5475 71.0455 48.4197 84.3194 57.0901ZM109.113 41.5543C123.88 60.1567 145.418 72.7999 168.958 77.2148C165.152 33.9423 128.81 0 84.5441 0C74.5397 0 64.9413 1.73264 56.0317 4.92244L61.94 7.16979C80.5786 14.2671 96.8901 26.1563 109.113 41.5543ZM86.313 72.2561L77.9688 66.8045C66.0723 59.0257 52.2909 53.7626 38.1036 51.5877L8.62695 47.0567C3.78426 56.7711 0.761201 67.5512 0 78.9475H98.05C94.0192 76.9683 90.1045 74.7282 86.313 72.2561ZM100.029 120.734C109.707 108.54 122.169 98.3907 136.204 91.2354C120.647 93.0261 105.778 98.369 92.6563 106.945L84.3194 112.404C71.0455 121.075 55.6764 126.947 39.8652 129.375L15.0138 133.196C21.9443 143.142 30.9628 151.523 41.4311 157.721L57.8078 151.486C74.5035 145.128 89.104 134.493 100.029 120.734ZM109.113 127.947C96.8901 143.338 80.5786 155.227 61.94 162.324L56.0317 164.572C64.9413 167.762 74.5397 169.494 84.5441 169.494C128.81 169.494 165.152 135.552 168.958 92.2794C145.418 96.6943 123.88 109.338 109.113 127.947ZM77.9688 102.69L86.313 97.238C90.1045 94.7659 94.0192 92.5258 98.05 90.5467H0C0.761201 101.943 3.78426 112.723 8.62695 122.437L38.1036 117.914C52.2909 115.732 66.0723 110.468 77.9688 102.69Z" fill="#9ee858"/></svg>
+            <h2>So we brought our own light.</h2>
+            <p>At this depth there is no sun. There never will be. And yet the abyss is not empty — because one small fish refused to accept the dark. The anglerfish doesn't wait for light to arrive. It grows its own, carries it out in front, and everything it needs comes swimming toward it.</p>
+            <p>That felt like instructions. So we did the unreasonable thing founders do: we went toward the problem everyone else had learned to live with, and we started <strong>Anglera</strong> — named for the fish. AI that does the enrichment work itself: sourcing, structuring, and scoring product data until an entire catalog is readable by the machines doing the world's shopping. Twenty years of tools promised to fix product data by storing it and moving it around. <strong>Anglera is the first that does the work.</strong></p>
+            <p class="storyline">You don't wait for the sun to reach the bottom of the ocean. You become the light.</p>
+            <span class="sku" style="top: 6%; left: 60%; --tilt: -2deg; --bob-delay: -2.8s;"><span class="raw">WIDGET — see attached.xlsx</span><span class="clean"><span class="check">✓</span> Hex Widget, M8, zinc-plated<small>31 attributes · agent-ready</small></span></span>
+            <span class="sku" style="top: 55%; left: 66%; --tilt: 3deg; --bob-delay: -1.2s;"><span class="raw">PLYWD 4x8 — cat: 'Misc'</span><span class="clean"><span class="check">✓</span> Birch Plywood, 4×8 ft, ¾ in<small>agent-ready</small></span></span>
+            <span class="sku" style="top: 88%; left: 8%; --tilt: -4deg; --bob-delay: -4s;"><span class="raw">SIZE: One Sz (fits most?)</span><span class="clean"><span class="check">✓</span> Knit Beanie, one size, 7 colors<small>agent-ready</small></span></span>
+            <span class="sku" style="top: 36%; left: 68%; --tilt: 2deg; --bob-delay: -0.4s;"><span class="raw">desc: &lt;br&gt;&lt;br&gt;&amp;nbsp;NEW!!</span><span class="clean"><span class="check">✓</span> Stand Mixer, 5 qt, 10-speed<small>44 attributes · agent-ready</small></span></span>
+        </section>
+
+        <section class="finale" id="finale">
+            <p class="depth-tag">−6,000 <span class="m">m</span> · the trench · today</p>
+            <h2>The ocean is still mostly dark.</h2>
+            <p><strong>22 million products enriched and counting</strong> — for brands, retailers, distributors, and marketplaces, six of them Fortune 500. Backed by Y Combinator. Every one of those is a small light switched on in the dark: a product that a person, or their agent, can finally find.</p>
+            <p>It's a big ocean. We keep swimming.</p>
+            <div class="tally" id="tally" aria-live="polite">
+                <span id="tallyLine">You enriched <b id="finalCount">0</b> of <b id="finalTotal">12</b> SKUs on the way down.</span><br>
+                <span id="tallyNote">The angler works faster with your light nearby.</span><br>
+                <button class="replay" id="replayBtn">↺ Restock the ocean</button>
+            </div>
+            <a class="stamp" href="https://www.anglera.com" target="_blank" rel="noopener" aria-label="Visit Anglera">
+                <img src="assets/anglera-logo.png" alt="Anglera" width="148" height="26">
+                <span class="stamp-arrow">↗</span>
+            </a>
+        </section>
+
+        <section class="seafloor" id="seafloor">
+            <p class="depth-tag">−10,935 <span class="m">m</span> · challenger deep · the secret</p>
+            <h2>You reached the bottom.</h2>
+            <p>Almost nobody scrolls this far. Since you did: the name has a story, and the ocean keeps its stories where it keeps everything precious.</p>
+            <div class="oysters" aria-label="Three oysters. Open each one.">
+                <button class="oyster" id="oy1" aria-expanded="false" aria-controls="pearl1" title="Open the oyster">
+                    <svg viewBox="0 0 64 52" aria-hidden="true">
+                        <ellipse cx="33" cy="30" rx="22" ry="7" fill="rgba(234,250,243,0.10)"/>
+                        <circle class="pearl" cx="33" cy="27" r="6.5" fill="#f2fff0" style="filter: drop-shadow(0 0 8px rgba(158,232,88,0.9));"/>
+                        <path d="M8 30 Q10 47 32 49 Q54 47 57 30 Q44 23 32.5 23 Q21 23 8 30 Z" fill="#0a5560" stroke="#7fb2ac" stroke-width="1.2"/>
+                        <g class="valve-top"><path d="M8 30 Q10 13 32 11 Q54 13 57 30 Q44 26 32.5 26 Q21 26 8 30 Z" fill="#0d626e" stroke="#7fb2ac" stroke-width="1.2"/><path d="M18 27.2 Q20 17 32 15 M32 25.5 Q32 18 32 13 M46 27.2 Q44 17 32 15" fill="none" stroke="#7fb2ac" stroke-width="0.7" opacity="0.7"/></g>
+                    </svg>
+                </button>
+                <button class="oyster" id="oy2" aria-expanded="false" aria-controls="pearl2" title="Open the oyster">
+                    <svg viewBox="0 0 64 52" aria-hidden="true">
+                        <ellipse cx="33" cy="30" rx="22" ry="7" fill="rgba(234,250,243,0.10)"/>
+                        <circle class="pearl" cx="33" cy="27" r="6.5" fill="#f2fff0" style="filter: drop-shadow(0 0 8px rgba(158,232,88,0.9));"/>
+                        <path d="M8 30 Q10 47 32 49 Q54 47 57 30 Q44 23 32.5 23 Q21 23 8 30 Z" fill="#0a5560" stroke="#7fb2ac" stroke-width="1.2"/>
+                        <g class="valve-top"><path d="M8 30 Q10 13 32 11 Q54 13 57 30 Q44 26 32.5 26 Q21 26 8 30 Z" fill="#0d626e" stroke="#7fb2ac" stroke-width="1.2"/><path d="M18 27.2 Q20 17 32 15 M32 25.5 Q32 18 32 13 M46 27.2 Q44 17 32 15" fill="none" stroke="#7fb2ac" stroke-width="0.7" opacity="0.7"/></g>
+                    </svg>
+                </button>
+                <button class="oyster" id="oy3" aria-expanded="false" aria-controls="pearl3" title="Open the oyster">
+                    <svg viewBox="0 0 64 52" aria-hidden="true">
+                        <ellipse cx="33" cy="30" rx="22" ry="7" fill="rgba(234,250,243,0.10)"/>
+                        <circle class="pearl" cx="33" cy="27" r="6.5" fill="#f2fff0" style="filter: drop-shadow(0 0 8px rgba(158,232,88,0.9));"/>
+                        <path d="M8 30 Q10 47 32 49 Q54 47 57 30 Q44 23 32.5 23 Q21 23 8 30 Z" fill="#0a5560" stroke="#7fb2ac" stroke-width="1.2"/>
+                        <g class="valve-top"><path d="M8 30 Q10 13 32 11 Q54 13 57 30 Q44 26 32.5 26 Q21 26 8 30 Z" fill="#0d626e" stroke="#7fb2ac" stroke-width="1.2"/><path d="M18 27.2 Q20 17 32 15 M32 25.5 Q32 18 32 13 M46 27.2 Q44 17 32 15" fill="none" stroke="#7fb2ac" stroke-width="0.7" opacity="0.7"/></g>
+                    </svg>
+                </button>
+            </div>
+            <div class="pearls">
+                <p class="pearl-text" id="pearl1" hidden><b>The restaurant.</b> Angler — our favorite seafood spot in San Francisco. We loved it enough to name a company after it.</p>
+                <p class="pearl-text" id="pearl2" hidden><b>The search.</b> An angler is someone who searches. We thought we were building a search company — until we realized every search over a catalog is only as good as the product data underneath it. So we went deeper and fixed the data.</p>
+                <p class="pearl-text" id="pearl3" hidden><b>The extra “a.”</b> Angler.com wasn’t available. One more letter got us the coveted dot-com — and something softer, almost French: <i>Angler-a</i>. Honestly, a better name.</p>
+                <p class="pearl-tally" id="pearlTally">pearls found: 0/3</p>
+                <p class="pearl-final" id="pearlFinal" hidden>And that's how the light got its name.</p>
+            </div>
+        </section>
     </main>
 
     <footer>
         <span>San Francisco</span>
-        <span class="now">building Anglera.</span>
+        <span>rayiyer.com · built at depth</span>
     </footer>
+
+    <script>
+    (function () {
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var skus = Array.prototype.slice.call(document.querySelectorAll('.sku'));
+        var hudCount = document.getElementById('hudCount');
+        var hudTotal = document.getElementById('hudTotal');
+        var hudDepth = document.getElementById('hudDepth');
+        var finalCount = document.getElementById('finalCount');
+        var finalTotal = document.getElementById('finalTotal');
+        var tallyNote = document.getElementById('tallyNote');
+        var enriched = 0;
+
+        hudTotal.textContent = skus.length;
+        finalTotal.textContent = skus.length;
+
+        if (reducedMotion) {
+            skus.forEach(function (s) { s.classList.add('enriched'); });
+            enriched = skus.length;
+            hudCount.textContent = enriched;
+            finalCount.textContent = enriched;
+            tallyNote.textContent = 'The angler cleared the catalog for you.';
+            document.getElementById('diveHint').textContent = 'scroll to descend';
+        }
+
+        /* ---- oysters: the naming story ---- */
+        var pearlsFound = 0;
+        var pearlTally = document.getElementById('pearlTally');
+        var pearlFinal = document.getElementById('pearlFinal');
+        Array.prototype.forEach.call(document.querySelectorAll('.oyster'), function (oy) {
+            oy.addEventListener('click', function () {
+                if (oy.getAttribute('aria-expanded') === 'true') return;
+                oy.setAttribute('aria-expanded', 'true');
+                document.getElementById(oy.getAttribute('aria-controls')).hidden = false;
+                pearlsFound++;
+                pearlTally.textContent = 'pearls found: ' + pearlsFound + '/3';
+                if (pearlsFound === 3) pearlFinal.hidden = false;
+                pop();
+            });
+        });
+
+        /* ---- depth readout ---- */
+        var TRENCH = 10935;
+        function updateDepth() {
+            var max = document.documentElement.scrollHeight - window.innerHeight;
+            var d = max > 0 ? Math.round(window.scrollY / max * TRENCH) : 0;
+            hudDepth.textContent = '−' + d.toLocaleString() + ' m';
+        }
+        window.addEventListener('scroll', updateDepth, { passive: true });
+        updateDepth();
+
+        if (reducedMotion) return;
+
+        /* ---- sound ---- */
+        var audioCtx = null;
+        var soundOn = true;
+        var soundBtn = document.getElementById('soundToggle');
+        soundBtn.addEventListener('click', function () {
+            soundOn = !soundOn;
+            soundBtn.setAttribute('aria-pressed', String(soundOn));
+        });
+        function primeAudio() {
+            if (!audioCtx) {
+                try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+            }
+        }
+        window.addEventListener('pointerdown', primeAudio, { once: true });
+        window.addEventListener('keydown', primeAudio, { once: true });
+        function pop() {
+            if (!soundOn || !audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            var t = audioCtx.currentTime;
+            var osc = audioCtx.createOscillator();
+            var gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(700, t);
+            osc.frequency.exponentialRampToValueAtTime(1150, t + 0.09);
+            gain.gain.setValueAtTime(0.0001, t);
+            gain.gain.exponentialRampToValueAtTime(0.12, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start(t);
+            osc.stop(t + 0.24);
+        }
+
+        /* ---- canvas sea: marine snow, the angler, particles ---- */
+        var canvas = document.getElementById('sea');
+        var ctx = canvas.getContext('2d');
+        var W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+        function resize() {
+            W = window.innerWidth;
+            H = window.innerHeight;
+            canvas.width = W * DPR;
+            canvas.height = H * DPR;
+            ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+            cacheSkuRects();
+        }
+
+        /* sku positions cached in document coords */
+        var skuRects = [];
+        function cacheSkuRects() {
+            skuRects = skus.map(function (el) {
+                var r = el.getBoundingClientRect();
+                return {
+                    el: el,
+                    x: r.left + r.width / 2,
+                    y: r.top + r.height / 2 + window.scrollY
+                };
+            });
+        }
+
+        /* marine snow */
+        var snow = [];
+        for (var i = 0; i < 70; i++) {
+            snow.push({
+                x: Math.random(), y: Math.random(),
+                r: 0.6 + Math.random() * 1.7,
+                s: 0.06 + Math.random() * 0.22,
+                o: 0.08 + Math.random() * 0.3
+            });
+        }
+
+        /* burst particles */
+        var parts = [];
+        function burst(x, y) {
+            for (var i = 0; i < 16; i++) {
+                var a = Math.random() * Math.PI * 2;
+                var v = 1 + Math.random() * 3;
+                parts.push({
+                    x: x, y: y,
+                    vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.6,
+                    life: 1,
+                    lime: Math.random() > 0.35
+                });
+            }
+        }
+
+        /* the angler */
+        var fish = { x: W / 2, y: 300, vx: 0, vy: 0, dir: 1, t: 0 };
+        var pointer = { x: null, y: null, active: false };
+        var lastMove = 0;
+
+        window.addEventListener('pointermove', function (e) {
+            pointer.x = e.clientX; pointer.y = e.clientY;
+            pointer.active = true;
+            lastMove = performance.now();
+        }, { passive: true });
+        window.addEventListener('touchmove', function (e) {
+            if (e.touches.length) {
+                pointer.x = e.touches[0].clientX;
+                pointer.y = e.touches[0].clientY;
+                pointer.active = true;
+                lastMove = performance.now();
+            }
+        }, { passive: true });
+
+        function drawFish(x, y, angle, dir, t, glow) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle * dir);
+            ctx.scale(dir, 1);
+
+            var wag = Math.sin(t * 7) * 0.25;
+
+            /* tail */
+            ctx.save();
+            ctx.translate(-26, 0);
+            ctx.rotate(wag);
+            ctx.fillStyle = '#0a5560';
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(-16, -12, -22, -15);
+            ctx.quadraticCurveTo(-14, 0, -22, 15);
+            ctx.quadraticCurveTo(-16, 12, 0, 0);
+            ctx.fill();
+            ctx.restore();
+
+            /* body */
+            var grd = ctx.createLinearGradient(0, -20, 0, 22);
+            grd.addColorStop(0, '#0b5a66');
+            grd.addColorStop(1, '#053b45');
+            ctx.fillStyle = grd;
+            ctx.beginPath();
+            ctx.moveTo(-28, 0);
+            ctx.bezierCurveTo(-20, -22, 10, -24, 26, -8);
+            ctx.bezierCurveTo(32, -2, 32, 4, 27, 9);
+            ctx.bezierCurveTo(12, 24, -18, 20, -28, 0);
+            ctx.fill();
+
+            /* jaw */
+            ctx.strokeStyle = '#032a32';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(27, 9);
+            ctx.quadraticCurveTo(16, 14, 8, 12);
+            ctx.stroke();
+
+            /* teeth */
+            ctx.fillStyle = 'rgba(234,250,243,0.85)';
+            [20, 15, 10].forEach(function (tx, i) {
+                ctx.beginPath();
+                ctx.moveTo(tx, 11 - i * 0.4);
+                ctx.lineTo(tx - 1.6, 15 - i * 0.4);
+                ctx.lineTo(tx - 3.2, 11 - i * 0.4);
+                ctx.fill();
+            });
+
+            /* fin */
+            ctx.fillStyle = '#0a5560';
+            ctx.beginPath();
+            ctx.moveTo(-2, 6);
+            ctx.quadraticCurveTo(-10, 18, -16, 16);
+            ctx.quadraticCurveTo(-10, 8, -2, 6);
+            ctx.fill();
+
+            /* eye */
+            ctx.fillStyle = '#eafaf3';
+            ctx.beginPath();
+            ctx.arc(16, -5, 3.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#01161d';
+            ctx.beginPath();
+            ctx.arc(17, -5, 1.7, 0, Math.PI * 2);
+            ctx.fill();
+
+            /* illicium (the rod) */
+            ctx.strokeStyle = '#9ee858';
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(10, -18);
+            ctx.quadraticCurveTo(22, -38, 36, -30);
+            ctx.stroke();
+
+            /* esca (the light) */
+            var lg = ctx.createRadialGradient(36, -30, 0, 36, -30, glow);
+            lg.addColorStop(0, 'rgba(158,232,88,0.9)');
+            lg.addColorStop(0.3, 'rgba(158,232,88,0.35)');
+            lg.addColorStop(1, 'rgba(158,232,88,0)');
+            ctx.fillStyle = lg;
+            ctx.beginPath();
+            ctx.arc(36, -30, glow, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#d9ffb0';
+            ctx.beginPath();
+            ctx.arc(36, -30, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        var lastScrollY = window.scrollY;
+        var lastNow = null;
+
+        function frame(now) {
+            var t = now / 1000;
+            /* normalize to 60fps steps so speed is identical on 120Hz and throttled tabs */
+            var dt = lastNow === null ? 1 : Math.min((now - lastNow) / 16.667, 3);
+            lastNow = now;
+            ctx.clearRect(0, 0, W, H);
+
+            var scrollY = window.scrollY;
+            var maxScroll = document.documentElement.scrollHeight - H;
+            var depthFrac = maxScroll > 0 ? scrollY / maxScroll : 0;
+
+            /* marine snow — denser + brighter with depth */
+            ctx.save();
+            for (var i = 0; i < snow.length; i++) {
+                var f = snow[i];
+                f.y += f.s / H * dt;
+                if (f.y > 1.02) { f.y = -0.02; f.x = Math.random(); }
+                var drift = Math.sin(t * 0.4 + i) * 8;
+                ctx.globalAlpha = f.o * (0.35 + depthFrac * 0.65);
+                ctx.fillStyle = '#cfeee6';
+                ctx.beginPath();
+                ctx.arc(f.x * W + drift, f.y * H, f.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.restore();
+
+            /* target: pointer, or an idle wander */
+            var idle = !pointer.active || now - lastMove > 6000;
+            var tx, ty;
+            if (idle) {
+                tx = W / 2 + Math.sin(t * 0.35) * W * 0.32;
+                ty = H * 0.45 + Math.sin(t * 0.53 + 2) * H * 0.22;
+            } else {
+                tx = pointer.x;
+                ty = pointer.y;
+            }
+            /* the fish holds its depth while you scroll */
+            fish.y -= (scrollY - lastScrollY) * 0.12;
+            lastScrollY = scrollY;
+
+            fish.vx += (tx - fish.x) * 0.003 * dt;
+            fish.vy += (ty - fish.y) * 0.003 * dt;
+            var damp = Math.pow(0.94, dt);
+            fish.vx *= damp;
+            fish.vy *= damp;
+            var sp = Math.hypot(fish.vx, fish.vy);
+            var maxSp = 7;
+            if (sp > maxSp) { fish.vx *= maxSp / sp; fish.vy *= maxSp / sp; }
+            fish.x += fish.vx * dt;
+            fish.y += fish.vy * dt;
+            fish.x = Math.max(-60, Math.min(W + 60, fish.x));
+            fish.y = Math.max(30, Math.min(H - 30, fish.y));
+
+            if (Math.abs(fish.vx) > 0.25) fish.dir = fish.vx > 0 ? 1 : -1;
+            var angle = Math.max(-0.4, Math.min(0.4, fish.vy * 0.06));
+            var glow = 26 + Math.sin(t * 2.2) * 6 + depthFrac * 26;
+
+            drawFish(fish.x, fish.y + Math.sin(t * 1.8) * 3, angle, fish.dir, t, glow);
+
+            /* lure position in viewport coords */
+            var lureX = fish.x + 36 * fish.dir;
+            var lureY = fish.y - 30 + Math.sin(t * 1.8) * 3;
+
+            /* enrich nearby skus */
+            for (var s = 0; s < skuRects.length; s++) {
+                var sk = skuRects[s];
+                if (sk.el.classList.contains('enriched')) continue;
+                var vy = sk.y - scrollY;
+                if (vy < -80 || vy > H + 80) continue;
+                if (Math.hypot(sk.x - lureX, vy - lureY) < 78) {
+                    sk.el.classList.add('enriched');
+                    enriched++;
+                    hudCount.textContent = enriched;
+                    finalCount.textContent = enriched;
+                    if (enriched === skus.length) {
+                        tallyNote.textContent = 'A clean catalog. The agents can see everything now.';
+                    }
+                    burst(sk.x, vy);
+                    pop();
+                    /* card grows when enriched — refresh cached centers */
+                    requestAnimationFrame(cacheSkuRects);
+                }
+            }
+
+            /* burst particles */
+            for (var p = parts.length - 1; p >= 0; p--) {
+                var pt = parts[p];
+                pt.x += pt.vx * dt;
+                pt.y += pt.vy * dt;
+                pt.vy += 0.03 * dt;
+                pt.life -= 0.025 * dt;
+                if (pt.life <= 0) { parts.splice(p, 1); continue; }
+                ctx.globalAlpha = pt.life;
+                ctx.fillStyle = pt.lime ? '#9ee858' : '#cfeee6';
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 2 + pt.life * 1.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            requestAnimationFrame(frame);
+        }
+
+        window.addEventListener('resize', resize);
+        window.addEventListener('load', cacheSkuRects);
+        resize();
+        requestAnimationFrame(frame);
+
+        /* ---- replay ---- */
+        document.getElementById('replayBtn').addEventListener('click', function () {
+            skus.forEach(function (s) { s.classList.remove('enriched'); });
+            enriched = 0;
+            hudCount.textContent = '0';
+            finalCount.textContent = '0';
+            tallyNote.textContent = 'The angler works faster with your light nearby.';
+            requestAnimationFrame(cacheSkuRects);
+        });
+    })();
+    </script>
 </body>
 </html>
